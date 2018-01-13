@@ -1,5 +1,5 @@
 # Copyright (C) 2017 NVIDIA Corporation.  All rights reserved.
-# Licensed under the CC BY-NC-ND 4.0 license (https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode).
+# Licensed under the CC BY-NC-SA 4.0 license (https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 train:
   snapshot_save_iterations: 100  # How often do you want to save trained models
   image_save_iterations: 500     # How often do you want to save output images during training
@@ -27,9 +27,9 @@ train:
       root: ../datasets/svhn/ # dataset root location
     train_b: # Domain 2 dataset
       class_name: dataset_mnist32x32_train # dataset class
-      root: /data/projects/unit_release/datasets/mnist/ # dataset root location
+      root: ../datasets/mnist/ # dataset root location
       use_inversion: 1
-    test_b: # Domain 1 dataset
+    test_b: # Domain 2 dataset
       class_name: dataset_mnist32x32_test # dataset class
       root: ../datasets/mnist/ # dataset root location
       use_inversion: 0

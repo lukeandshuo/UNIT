@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Copyright (C) 2017 NVIDIA Corporation.  All rights reserved.
-Licensed under the CC BY-NC-ND 4.0 license (https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode).
+Licensed under the CC BY-NC-SA 4.0 license (https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 """
 import sys
 from tools import *
@@ -18,7 +18,7 @@ parser.add_option('--resume', type=int, help="resume training?", default=0)
 parser.add_option('--config',
                   type=str,
                   help="net configuration",
-                  default="../exps/unit/svhn2mnist/svhn2mnist_v01.yaml")
+                  default="../exps/unit/svhn2mnist.yaml")
 parser.add_option('--log',
                   type=str,
                   help="log path",
@@ -36,8 +36,10 @@ def main(argv):
   batch_size = config.hyperparameters['batch_size']
   max_iterations = config.hyperparameters['max_iterations']
 
-  trainer = []
-  exec ("trainer=%s(config.hyperparameters)" % config.hyperparameters['trainer'])
+  cmd = "trainer=%s(config.hyperparameters)" % config.hyperparameters['trainer']
+  local_dict = locals()
+  exec(cmd,globals(),local_dict)
+  trainer = local_dict['trainer']
   trainer.cuda(opts.gpu)
 
   iterations = 0

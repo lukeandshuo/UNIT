@@ -1,10 +1,10 @@
 """
 Copyright (C) 2017 NVIDIA Corporation.  All rights reserved.
-Licensed under the CC BY-NC-ND 4.0 license (https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode).
+Licensed under the CC BY-NC-SA 4.0 license (https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 """
-from cocogan_nets_da import *
-from init import *
-from helpers import get_model_list, _compute_fake_acc2, _compute_true_acc2
+from .cocogan_nets_da import *
+from .init import *
+from .helpers import get_model_list, _compute_fake_acc2, _compute_true_acc2
 import torch
 import torch.nn as nn
 import os
@@ -37,8 +37,8 @@ class COCOGANDAContextTrainer(nn.Module):
 
   def _create_xy_image(self, width=32):
     coordinates = list(itertools.product(range(width), range(width)))
-    arr = (np.reshape(np.asarray(coordinates), newshape=[width, width, 2]) - width/2 ) / (width/2)
-    new_map = np.transpose(np.float32(arr), [2, 0, 1])
+    arr = (np.reshape(np.float32(np.asarray(coordinates)), newshape=[width, width, 2]) - width/2 ) / (width/2)
+    new_map = np.transpose(arr, [2, 0, 1])
     xy = Variable(torch.from_numpy(new_map), requires_grad=False)
     return xy
 

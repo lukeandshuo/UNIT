@@ -1,11 +1,11 @@
 
 
-## PyTorch Implementation of the Coupled GAN algorithm for Unsupervised Image-to-Image Translation
+## UNIT: UNsupervised Image-to-image Translation Networks
 
 ### License
 
 Copyright (C) 2017 NVIDIA Corporation.  All rights reserved.
-Licensed under the CC BY-NC-ND 4.0 license (https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode). 
+Licensed under the CC BY-NC-SA 4.0 license (https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode). 
 
 ### Paper
 
@@ -14,16 +14,21 @@ Licensed under the CC BY-NC-ND 4.0 license (https://creativecommons.org/licenses
 Please cite our paper if this software is used in your publications.
 
 ### Dependency
+
+
 pytorch, yaml, opencv, and tensorboard (from https://github.com/dmlc/tensorboard).
 
-If you use Anaconda2, then the following commands can be used to install all the dependencies.
 
+The code base was developed using Python 2 in Anaconda2 with the following packages.
 ```
 conda install pytorch torchvision cuda80 -c soumith
-conda install -c anaconda yaml=0.1.6
-conda install -c menpo opencv=2.4.11
-pip install tensorboard
+conda install -y -c anaconda pip; 
+conda install -y -c anaconda yaml;
+conda install -y -c menpo opencv;
+pip install tensorboard;
 ```
+
+We also provide a [Dockerfile](Dockerfile) for building an environment for running the UNIT code.
 
 ### Example Usage
 
@@ -32,7 +37,7 @@ pip install tensorboard
 ###### Cat to Tiger Translation
 1. Download the pretrained model in [link](https://drive.google.com/open?id=0BwpOatrZwxK6V1Bwai1GZFQ2Q0k) to <outputs/unit/cat2tiger>
 
-2. Go to <src> and run to translate the first cat and second cat to tigers
+2. Go to <src> and run the following command to translate cats to tigers
     ```
     python cocogan_translate_one_image.py --config ../exps/unit/cat2tiger.yaml --a2b 1 --weights ../outputs/unit/cat2tiger/cat2tiger_gen_00500000.pkl --image_name ../images/cat001.jpg --output_image_name ../results/cat2tiger_cat001.jpg
     ```
@@ -47,7 +52,7 @@ pip install tensorboard
 ###### Corgi to Husky Translation
 1. Download the pretrained model in [link](https://drive.google.com/open?id=0BwpOatrZwxK6NktUSWZRNE14Ym8) to <outputs/unit/corgi2husky>
 
-2. Go to <src> and run to translate the first cat and second cat to tigers
+2. Go to <src> and run the following command to translate corgis to huskies
     ```
     python cocogan_translate_one_image.py --config ../exps/unit/corgi2husky.yaml --a2b 1 --weights ../outputs/unit/corgi2husky/corgi2husky_gen_00500000.pkl --image_name ../images/corgi001.jpg --output_image_name ../results/corgi2husky_corgi001.jpg
     ```
@@ -55,10 +60,21 @@ pip install tensorboard
     python cocogan_translate_one_image.py --config ../exps/unit/corgi2husky.yaml --a2b 0 --weights ../outputs/unit/corgi2husky/corgi2husky_gen_00500000.pkl --image_name ../images/husky001.jpg --output_image_name ../results/husky2corgi_husky001.jpg
     ```
 
-4. Check out the results in <results>. Left: Input. Right: Output
+3. Check out the results in <results>. Left: Input. Right: Output
  - ![](./results/corgi2husky_corgi001.jpg)
  - ![](./results/husky2corgi_husky001.jpg)
  
+###### Synthetic-to-real and Real-to-synthetic Translation
+1. Download the pretrained model in [link](https://drive.google.com/open?id=1iTQFpyMmMLPe1eY2q-7g-3b5OSlYqc6X) to <outputs/unit/street_scene>
+
+2. Go to <src> and run the following command to translate a real image to a synthetic image.
+    ```
+    python cocogan_translate_one_image.py --config ../exps/unit_local/synthia2cityscape.yaml --a2b 0 --weights ../outputs/unit/street_scene/synthia2cityscape_gen_00250000.pkl --image_name ../images/freiburg_000000_000021_leftImg8bit.png --output_image_name ../results/synthetic_freiburg_000000_000021_leftImg8bit.png
+    ```
+    
+3. Check out the results in <results>. Left: Input. Right: Output
+ - ![](./results/synthetic_freiburg_000000_000021_leftImg8bit.png)
+
 #### Training
 1. Download the aligned and crop version of the [CelebA dataset](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) to <datasets/celeba>. 
 

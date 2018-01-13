@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Copyright (C) 2017 NVIDIA Corporation.  All rights reserved.
-Licensed under the CC BY-NC-ND 4.0 license (https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode).
+Licensed under the CC BY-NC-SA 4.0 license (https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 """
 from datasets import *
 import os
@@ -38,14 +38,12 @@ def main(argv):
     dataset = config.datasets['train_b']
   data = []
   exec ("data = %s(dataset)" % dataset['class_name'])
-
-  trainer = []
-  exec ("trainer=%s(hyperparameters)" % hyperparameters['trainer'])
+  exec("trainer=%s(config.hyperparameters)" % config.hyperparameters['trainer'])
 
   # Prepare network
   trainer.gen.load_state_dict(torch.load(opts.weights))
   trainer.cuda(opts.gpu)
-  # trainer.gen.eval()
+  trainer.gen.eval()
 
 
   full_img_name = opts.image_name
